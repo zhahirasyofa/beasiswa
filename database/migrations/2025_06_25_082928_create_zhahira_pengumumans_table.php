@@ -10,20 +10,16 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('zhahira_pengumumans', function (Blueprint $table) {
-            $table->id();
+{
+    Schema::create('zhahira_pengumumans', function (Blueprint $table) {
+        $table->id();
         $table->string('judul');
         $table->text('isi');
-        $table->foreignId('kategori_id')
-      ->nullable() // ✅ HARUS sebelum constrained()
-      ->constrained('zhahira_kategoris')
-      ->onDelete('set null');
-    
-        $table->date('tanggal_publish');
+        $table->foreignId('kategori_id')->constrained('zhahira_kategoris')->onDelete('cascade');
         $table->timestamps();
-        });
-    }
+    });
+}
+
 
     /**
      * Reverse the migrations.
