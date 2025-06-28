@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 
 // Halaman utama
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('homepage');
 
 // Auth
 Route::get('/login', [AuthController::class, 'formLogin'])->name('login');

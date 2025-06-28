@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\ZhahiraBeasiswa;
+use App\Models\ZhahiraBeasiswas;
 
 class ZhahiraBeasiswaController extends Controller
 {
     public function index()
     {
-        $data = ZhahiraBeasiswa::all();
+        $data = ZhahiraBeasiswas::all();
         return view('admin.beasiswa.index', compact('data'));
     }
 
@@ -27,16 +27,16 @@ class ZhahiraBeasiswaController extends Controller
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai'
         ]);
 
-        ZhahiraBeasiswa::create($request->all());
+        ZhahiraBeasiswas::create($request->all());
         return redirect()->route('beasiswa.index')->with('success', 'Data beasiswa berhasil ditambahkan.');
     }
 
-    public function edit(ZhahiraBeasiswa $beasiswa)
+    public function edit(ZhahiraBeasiswas $beasiswa)
     {
         return view('admin.beasiswa.edit', compact('beasiswa'));
     }
 
-    public function update(Request $request, ZhahiraBeasiswa $beasiswa)
+    public function update(Request $request, ZhahiraBeasiswas $beasiswa)
     {
         $request->validate([
             'nama_beasiswa' => 'required',
@@ -49,7 +49,7 @@ class ZhahiraBeasiswaController extends Controller
         return redirect()->route('beasiswa.index')->with('success', 'Data beasiswa berhasil diperbarui.');
     }
 
-    public function destroy(ZhahiraBeasiswa $beasiswa)
+    public function destroy(ZhahiraBeasiswas $beasiswa)
     {
         $beasiswa->delete();
         return redirect()->route('beasiswa.index')->with('success', 'Data beasiswa berhasil dihapus.');
