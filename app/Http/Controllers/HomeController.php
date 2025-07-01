@@ -12,4 +12,10 @@ class HomeController extends Controller
         $beasiswas = ZhahiraBeasiswas::latest()->paginate(6); // ← gunakan model yang benar
         return view('homepage', compact('beasiswas')); // ← pastikan view-nya "homepage"
     }
+    public function dashboard()
+{
+    $beasiswas = ZhahiraBeasiswas::latest()->paginate(6);
+    return view('dashboard', compact('beasiswas'));
+}
+
 }

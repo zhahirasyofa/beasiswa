@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ZhahiraBeasiswas;
 
-class ZhahiraBeasiswaController extends Controller
+class ZhahiraBeasiswasController extends Controller
 {
     public function index()
     {
-        $data = ZhahiraBeasiswas::all();
-        return view('admin.beasiswa.index', compact('data'));
+        $beasiswas = ZhahiraBeasiswas::all();
+        return view('admin.beasiswa.index', compact('beasiswas'));
     }
 
     public function create()

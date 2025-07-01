@@ -3,13 +3,36 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ZhahiraBeasiswasController;
+use App\Http\Controllers\ZhahiraPendaftaransController;
 
-// Halaman utama
-Route::get('/', [HomeController::class, 'index'])->name('homepage');
+// Halaman utama (Homepage) – hanya untuk user yang sudah login
+Route::get('/', [HomeController::class, 'index'])
+    ->middleware('auth')
+    ->name('homepage');
 
-// Auth
+// Dashboard jika diperlukan (misalnya untuk admin)
+Route::get('/dashboard', [HomeController::class, 'dashboard'])
+    ->middleware('auth')
+    ->name('dashboard');
+
+// Route otentikasi
 Route::get('/login', [AuthController::class, 'formLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'formRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Route CRUD Beasiswa – hanya bisa diakses jika sudah login
+Route::middleware('auth')->group(function () {
+    Route::get('/beasiswa', [ZhahiraBeasiswasController::class, 'index'])->name('beasiswa.index');
+    Route::get('/beasiswa/create', [ZhahiraBeasiswasController::class, 'create'])->name('beasiswa.create');
+    Route::post('/beasiswa', [ZhahiraBeasiswasController::class, 'store'])->name('beasiswa.store');
+    Route::get('/beasiswa/{beasiswa}/edit', [ZhahiraBeasiswasController::class, 'edit'])->name('beasiswa.edit');
+    Route::put('/beasiswa/{beasiswa}', [ZhahiraBeasiswasController::class, 'update'])->name('beasiswa.update');
+    Route::delete('/beasiswa/{beasiswa}', [ZhahiraBeasiswasController::class, 'destroy'])->name('beasiswa.destroy');
+
+    // Route form pendaftaran beasiswa
+    Route::get('/pendaftaran/create', [ZhahiraPendaftaransController::class, 'create'])->name('pendaftaran.create');
+    Route::post('/pendaftaran', [ZhahiraPendaftaransController::class, 'store'])->name('pendaftaran.store');
+});
