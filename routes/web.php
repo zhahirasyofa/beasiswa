@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ZhahiraBeasiswasController;
 use App\Http\Controllers\ZhahiraPendaftaransController;
+use App\Http\Controllers\ZhahiraKategorisController;
 
 // Halaman utama (Homepage) – hanya untuk user yang sudah login
 Route::get('/', [HomeController::class, 'index'])
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/beasiswa/{beasiswa}', [ZhahiraBeasiswasController::class, 'destroy'])->name('beasiswa.destroy');
 
     // Route form pendaftaran beasiswa
-    Route::get('/pendaftaran/create', [ZhahiraPendaftaransController::class, 'create'])->name('pendaftaran.create');
+Route::get('/pendaftaran/{beasiswa}/create', [ZhahiraPendaftaransController::class, 'create'])->name('pendaftaran.create');
     Route::post('/pendaftaran', [ZhahiraPendaftaransController::class, 'store'])->name('pendaftaran.store');
 });
+
+Route::resource('kategori', ZhahiraKategorisController::class)->middleware('auth');

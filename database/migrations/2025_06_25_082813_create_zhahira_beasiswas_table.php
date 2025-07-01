@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
         $table->string('nama_beasiswa');
         $table->text('deskripsi');
+        $table->integer('kuota');
         $table->date('tanggal_mulai');
         $table->date('tanggal_selesai');
         $table->foreignId('kategori_id')->constrained('zhahira_kategoris')->onDelete('cascade');

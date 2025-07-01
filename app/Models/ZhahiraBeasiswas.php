@@ -9,12 +9,20 @@ class ZhahiraBeasiswas extends Model
 {
     use HasFactory;
 
-    protected $table = 'zhahira_beasiswas'; // sesuaikan dengan nama tabel
+    protected $table = 'zhahira_beasiswas';
+
     protected $fillable = [
         'nama_beasiswa',
         'deskripsi',
-        'kategori_id',
-        'tanggal_buka',
-        'tanggal_tutup'
+        'kuota',
+        'tanggal_mulai',
+        'tanggal_selesai',
+        'kategori_id', // <- penting agar bisa mass-assignment
     ];
+
+    // Relasi: satu beasiswa dimiliki oleh satu kategori
+    public function kategori()
+    {
+        return $this->belongsTo(ZhahiraKategoris::class, 'kategori_id');
+    }
 }
