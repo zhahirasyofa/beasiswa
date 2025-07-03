@@ -1,39 +1,52 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Beasiswa')
-
 @section('content')
-<div class="container py-5">
-    <h2 class="mb-4 fw-bold">Tambah Beasiswa Baru</h2>
+<div class="container mt-4">
+    <h3>Form Pendaftaran Beasiswa</h3>
 
-    <form action="{{ route('beasiswa.store') }}" method="POST">
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @elseif(session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
+    <form action="{{ route('pendaftaran.store') }}" method="POST">
         @csrf
+
+        <input type="hidden" name="beasiswa_id" value="{{ $beasiswa->id }}">
+
         <div class="mb-3">
-            <label for="nama_beasiswa" class="form-label">Nama Beasiswa</label>
-            <input type="text" class="form-control" id="nama_beasiswa" name="nama_beasiswa" required>
+            <label class="form-label">Nama Beasiswa</label>
+            <input type="text" class="form-control" value="{{ $beasiswa->nama }}" disabled>
         </div>
 
         <div class="mb-3">
-            <label for="deskripsi" class="form-label">Deskripsi</label>
-            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" required></textarea>
+            <label for="nim" class="form-label">NIM</label>
+            <input type="text" class="form-control" name="nim" id="nim" required>
         </div>
 
         <div class="mb-3">
-            <label for="kuota" class="form-label">Kuota</label>
-            <input type="number" class="form-control" id="kuota" name="kuota" required>
+            <label for="prodi" class="form-label">Program Studi</label>
+            <input type="text" class="form-control" name="prodi" id="prodi" required>
         </div>
 
         <div class="mb-3">
-            <label for="tanggal_mulai" class="form-label">Tanggal Mulai</label>
-            <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai" required>
+            <label for="asal_kampus" class="form-label">Asal Kampus</label>
+            <input type="text" class="form-control" name="asal_kampus" id="asal_kampus" required>
         </div>
 
         <div class="mb-3">
-            <label for="tanggal_berakhir" class="form-label">Tanggal Berakhir</label>
-            <input type="date" class="form-control" id="tanggal_berakhir" name="tanggal_berakhir" required>
+            <label for="semester" class="form-label">Semester</label>
+            <input type="text" class="form-control" name="semester" id="semester" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Simpan Beasiswa</button>
+        <div class="mb-3">
+            <label for="no_telepon" class="form-label">No. Telepon</label>
+            <input type="text" class="form-control" name="no_telepon" id="no_telepon" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Daftar Sekarang</button>
+        <a href="{{ route('homepage') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 @endsection

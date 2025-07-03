@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('zhahira_pendaftarans', function (Blueprint $table) {
             $table->id();
-        $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // atau mahasiswa_id jika pakai tabel mahasiswa
-        $table->foreignId('beasiswa_id')->constrained('zhahira_beasiswas')->onDelete('cascade');
-        $table->date('tanggal_daftar');
-        $table->enum('status', ['diproses', 'diterima', 'ditolak'])->default('diproses');
-        $table->timestamps();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // atau mahasiswa_id jika pakai tabel mahasiswa
+            $table->foreignId('beasiswa_id')->constrained('zhahira_beasiswas')->onDelete('cascade');
+            $table->date('tanggal_daftar');
+            $table->enum('status', ['diproses', 'diterima', 'ditolak'])->default('diproses');
+            $table->timestamps();
         });
     }
 

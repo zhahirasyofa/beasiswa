@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'Portal Beasiswa')</title>
@@ -9,20 +9,24 @@
         .navbar-custom {
             background: linear-gradient(90deg, #0d6efd, #0b5ed7);
         }
+
         .nav-link {
             font-weight: 600;
             font-size: 1.1rem;
         }
+
         .navbar-brand {
             font-weight: 700;
             font-size: 1.3rem;
         }
+
         .btn-profile {
             background-color: white;
             color: #0d6efd;
             font-weight: 600;
             border-radius: 30px;
         }
+
         .btn-profile:hover {
             background-color: #f0f0f0;
             color: #0b5ed7;
@@ -47,13 +51,24 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ route('homepage') }}">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('beasiswa.index') }}">Beasiswa</a></li>
+
+                    @auth
+                        @if (auth()->user()->role === 'admin')
+                            <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link">Data Pendaftar</a>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('pendaftaran.index') }}">List Pendaftaran</a>
+                            </li>
+                        @endif
+                    @endauth
                     <li class="nav-item"><a class="nav-link" href="#">Kontak</a></li>
                 </ul>
 
                 <ul class="navbar-nav">
                     @auth
                         <li class="nav-item dropdown">
-                            <a class="btn btn-profile dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <a class="btn btn-profile dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown">
                                 {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
