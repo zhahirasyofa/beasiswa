@@ -19,14 +19,14 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="card h-100 shadow rounded-4 border-0" style="background-color: #fefefe;">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title fw-bold text-danger">{{ $beasiswa->nama_beasiswa }}</h5>
+                                <h5 class="card-title fw-bold text-black">{{ $beasiswa->nama_beasiswa }}</h5>
                                 <p class="card-text text-muted">{{ Str::limit($beasiswa->deskripsi, 100) }}</p>
                                 
                                 <div class="d-flex justify-content-between align-items-center mt-auto">
-                                    <span class="badge rounded-pill bg-warning text-dark px-3 py-2">
+                                    <span class="badge rounded-pill bg-blue text-dark px-3 py-2">
                                         Deadline: {{ $beasiswa->tanggal_berakhir }}
                                     </span>
-                                    <a href="{{ route('pendaftaran.create', ['beasiswa_id' => $beasiswa->id]) }}" class="btn btn-outline-danger btn-sm fw-bold">Daftar</a>
+                                    <a href="{{ route('pendaftaran.create', $beasiswa->id) }}" class="btn btn-outline-secondary btn-sm fw-bold">Daftar</a>
                                 </div>
                             </div>
                         </div>
