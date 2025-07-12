@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container py-5">
-        <h2 class="mb-4 fw-bold text-primary">Tambah Beasiswa</h2>
+        <h2 class="mb-4 fw-bold text-dark">Tambah Beasiswa</h2>
 
         <form action="{{ route('beasiswa.store') }}" method="POST">
             @csrf
@@ -45,7 +45,7 @@
             </div>
 
 
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary text-light" style="background-color: #0D1B2A;">Simpan</button>
         </form>
     </div>
 @endsection

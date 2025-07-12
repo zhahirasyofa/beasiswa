@@ -35,7 +35,7 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary text-light" style="background-color: #0D1B2A;">Simpan</button>
         </form>
     </div>
 @endsection

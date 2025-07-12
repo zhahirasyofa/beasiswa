@@ -11,9 +11,27 @@ class ZhahiraBeasiswasController extends Controller
 {
     public function index()
     {
-        $beasiswas = ZhahiraBeasiswas::all();
-        return view('admin.beasiswa.index', compact('beasiswas'));
+        $query = ZhahiraBeasiswas::query()->with('kategori');
+
+        // Search by nama_beasiswa
+        if (request('search')) {
+            $query->where('nama_beasiswa', 'like', '%' . request('search') . '%');
+        }
+
+        // Filter by kategori
+        if (request('kategori')) {
+            $query->where('kategori_id', request('kategori'));
+        }
+
+        $beasiswas = $query->latest()->paginate(6);
+
+        // Untuk form filter
+        $kategoris = ZhahiraKategoris::all();
+
+        return view('admin.beasiswa.index', compact('beasiswas', 'kategoris'));
     }
+
+
 
     public function create()
     {

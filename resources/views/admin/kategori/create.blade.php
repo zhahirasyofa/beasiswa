@@ -14,7 +14,7 @@
                 <label for="nama">Nama Kategori</label>
                 <input type="text" name="nama" id="nama" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary text-light" style="background-color: #0D1B2A;">Simpan</button>
         </form>
     </div>
 @endsection

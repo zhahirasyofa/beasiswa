@@ -6,30 +6,52 @@
     <title>@yield('title', 'Portal Beasiswa')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        :root {
+            --dongker: #0D1B2A;
+            --biru-soft: #1e3a8a;
+        }
+
+        body {
+            background-color: #f8f9fa;
+        }
+
         .navbar-custom {
-            background: linear-gradient(90deg, #0d6efd, #0b5ed7);
+            background: linear-gradient(90deg, var(--dongker), var(--biru-soft));
         }
 
         .nav-link {
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            color: #f8f9fa !important;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .nav-link:hover {
+            color: #dbeafe !important;
         }
 
         .navbar-brand {
             font-weight: 700;
             font-size: 1.3rem;
+            color: #ffffff !important;
         }
 
         .btn-profile {
             background-color: white;
-            color: #0d6efd;
+            color: var(--biru-soft);
             font-weight: 600;
             border-radius: 30px;
+            padding: 6px 18px;
         }
 
         .btn-profile:hover {
             background-color: #f0f0f0;
             color: #0b5ed7;
+        }
+
+        .main-content {
+            padding: 0;
+            margin: 0;
         }
     </style>
 </head>
@@ -54,20 +76,21 @@
 
                     @auth
                         @if (auth()->user()->role === 'admin')
-                            <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link">Data Pendaftar</a>
-                            <a href="{{ route('kategori.create') }}" class="btn btn-success">Tambah Kategori</a>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('pengumuman.create') }}">
-                                    Tambah Pengumuman
-                                </a>
+                                <a class="nav-link" href="{{ route('admin.pendaftaran.index') }}">Data Pendaftar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('kategori.create') }}">Tambah Kategori</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('pengumuman.create') }}">Tambah Pengumuman</a>
                             </li>
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('pendaftaran.index') }}">List Pendaftaran</a>
+                                <a class="nav-link" href="{{ route('pendaftaran.index') }}">Status Pendaftaran</a>
                             </li>
                         @endif
                     @endauth
-
                 </ul>
 
                 <ul class="navbar-nav">
@@ -95,7 +118,7 @@
         </div>
     </nav>
 
-    <main class="py-4">
+    <main class="main-content">
         @yield('content')
     </main>
 
