@@ -7,6 +7,7 @@ use App\Http\Controllers\ZhahiraBeasiswasController;
 use App\Http\Controllers\ZhahiraPendaftaransController;
 use App\Http\Controllers\ZhahiraKategorisController;
 use App\Http\Middleware\RoleAdmin;
+use App\Http\Controllers\ZhahiraPengumumansController;
 
 // Halaman utama (Homepage) – hanya untuk user yang sudah login
 Route::get('/', [HomeController::class, 'index'])
@@ -54,4 +55,9 @@ Route::middleware(['auth', RoleAdmin::class])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('kategori/create', [ZhahiraKategorisController::class, 'create'])->name('kategori.create');
     Route::post('kategori', [ZhahiraKategorisController::class, 'store'])->name('kategori.store');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('pengumuman/create', [ZhahiraPengumumansController::class, 'create'])->name('pengumuman.create');
+    Route::post('pengumuman', [ZhahiraPengumumansController::class, 'store'])->name('pengumuman.store');
 });

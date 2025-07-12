@@ -15,6 +15,7 @@ class ZhahiraPengumumans extends Model
         'judul',
         'isi',
         'kategori_id',
+        'gambar',
     ];
 
     public function kategori()

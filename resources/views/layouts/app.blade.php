@@ -56,13 +56,18 @@
                         @if (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link">Data Pendaftar</a>
                             <a href="{{ route('kategori.create') }}" class="btn btn-success">Tambah Kategori</a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('pengumuman.create') }}">
+                                    Tambah Pengumuman
+                                </a>
+                            </li>
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('pendaftaran.index') }}">List Pendaftaran</a>
                             </li>
                         @endif
                     @endauth
-                    <li class="nav-item"><a class="nav-link" href="#">Pengumuman</a></li>
+
                 </ul>
 
                 <ul class="navbar-nav">
@@ -82,7 +87,8 @@
                         </li>
                     @else
                         <li class="nav-item"><a class="nav-link text-white" href="{{ route('login') }}">Login</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('register') }}">Register</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="{{ route('register') }}">Register</a>
+                        </li>
                     @endauth
                 </ul>
             </div>

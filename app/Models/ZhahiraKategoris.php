@@ -17,4 +17,9 @@ class ZhahiraKategoris extends Model
     {
         return $this->hasMany(ZhahiraBeasiswas::class, 'kategori_id');
     }
+
+    public function pengumumans()
+    {
+        return $this->hasMany(ZhahiraPengumumans::class, 'kategori_id');
+    }
 }

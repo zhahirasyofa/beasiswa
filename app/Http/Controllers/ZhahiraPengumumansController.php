@@ -2,59 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\ZhahiraPengumumans;
 use App\Models\ZhahiraKategoris;
-use Illuminate\Http\Request;
+use App\Models\ZhahiraBeasiswas;
+
 
 class ZhahiraPengumumansController extends Controller
 {
+
     public function index()
     {
-        $data = ZhahiraPengumumans::with('kategori')->get();
-        return view('admin.pengumuman.index', compact('data'));
+        $beasiswas = ZhahiraBeasiswas::paginate(6); // contoh
+        $pengumumans = ZhahiraPengumumans::with('kategori')->latest()->take(5)->get();
+
+        return view('homepage', compact('beasiswas', 'pengumumans'));
     }
 
     public function create()
     {
-        $kategori = ZhahiraKategoris::all();
-        return view('admin.pengumuman.create', compact('kategori'));
+        $kategoris = ZhahiraKategoris::all();
+        return view('admin.pengumuman.create', compact('kategoris'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required|string',
+            'judul' => 'required|string|max:255',
             'isi' => 'required|string',
             'kategori_id' => 'required|exists:zhahira_kategoris,id',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
-        ZhahiraPengumumans::create($request->all());
+        $data = $request->only('judul', 'isi', 'kategori_id');
 
-        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil ditambahkan');
-    }
+        // Proses upload gambar jika ada
+        if ($request->hasFile('gambar')) {
+            $file = $request->file('gambar');
+            $namaFile = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('gambar'), $namaFile);
+            $data['gambar'] = 'gambar/' . $namaFile; // disimpan di DB
+        }
 
-    public function edit(ZhahiraPengumumans $pengumuman)
-    {
-        $kategori = ZhahiraKategoris::all();
-        return view('admin.pengumuman.edit', compact('pengumuman', 'kategori'));
-    }
+        ZhahiraPengumumans::create($data);
 
-    public function update(Request $request, ZhahiraPengumumans $pengumuman)
-    {
-        $request->validate([
-            'judul' => 'required|string',
-            'isi' => 'required|string',
-            'kategori_id' => 'required|exists:zhahira_kategoris,id',
-        ]);
-
-        $pengumuman->update($request->all());
-
-        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil diperbarui');
-    }
-
-    public function destroy(ZhahiraPengumumans $pengumuman)
-    {
-        $pengumuman->delete();
-        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil dihapus');
+        return redirect()->route('pengumuman.create')->with('success', 'Pengumuman berhasil ditambahkan.');
     }
 }
