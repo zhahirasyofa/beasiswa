@@ -46,7 +46,7 @@
                                 {{ \Carbon\Carbon::parse($beasiswa->tanggal_selesai)->translatedFormat('d F Y') }}</p>
 
                             {{-- Kategori --}}
-                            <p><strong>Kategori:</strong> {{ $beasiswa->kategori->nama_kategori ?? '-' }}</p>
+                            <p><strong>Kategori:</strong> {{ $beasiswa->kategori->nama ?? '-' }}</p>
 
                             {{-- Tombol Aksi --}}
                             <div class="mt-auto d-flex gap-2">

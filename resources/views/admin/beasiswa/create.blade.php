@@ -39,7 +39,7 @@
                 <select name="kategori_id" id="kategori_id" class="form-control" required>
                     <option value="">-- Pilih Kategori --</option>
                     @foreach ($kategoris as $kategori)
-                        <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>
+                        <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
                     @endforeach
                 </select>
             </div>

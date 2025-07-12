@@ -55,13 +55,14 @@
                     @auth
                         @if (auth()->user()->role === 'admin')
                             <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link">Data Pendaftar</a>
+                            <a href="{{ route('kategori.create') }}" class="btn btn-success">Tambah Kategori</a>
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('pendaftaran.index') }}">List Pendaftaran</a>
                             </li>
                         @endif
                     @endauth
-                    <li class="nav-item"><a class="nav-link" href="#">Kontak</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Pengumuman</a></li>
                 </ul>
 
                 <ul class="navbar-nav">

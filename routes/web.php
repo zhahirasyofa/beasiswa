@@ -49,3 +49,9 @@ Route::middleware(['auth', RoleAdmin::class])->group(function () {
     Route::patch('/admin/pendaftaran/{id}/status', [ZhahiraPendaftaransController::class, 'updateStatus'])
         ->name('admin.pendaftaran.updateStatus');
 });
+
+// Hanya izinkan route create dan store saja
+Route::middleware(['auth'])->group(function () {
+    Route::get('kategori/create', [ZhahiraKategorisController::class, 'create'])->name('kategori.create');
+    Route::post('kategori', [ZhahiraKategorisController::class, 'store'])->name('kategori.store');
+});
