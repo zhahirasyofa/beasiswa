@@ -38,7 +38,11 @@
                                 </p>
                                 <p class="card-text mb-4">{{ Str::limit($pengumuman->isi, 100) }}</p>
                                 {{-- Optional: Tambahkan tombol selengkapnya --}}
-                                <a href="#" class="btn btn-sm btn-dark mt-auto align-self-start">Selengkapnya</a>
+                                <a href="{{ route('admin.pengumuman.show', $pengumuman->id) }}"
+                                    class="btn btn-sm btn-dark mt-auto align-self-start">
+                                    Selengkapnya
+                                </a>
+
                             </div>
                         </div>
                     </div>

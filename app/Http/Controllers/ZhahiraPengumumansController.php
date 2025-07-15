@@ -48,4 +48,10 @@ class ZhahiraPengumumansController extends Controller
 
         return redirect()->route('pengumuman.create')->with('success', 'Pengumuman berhasil ditambahkan.');
     }
+
+    public function show($id)
+    {
+        $pengumuman = ZhahiraPengumumans::with('kategori')->findOrFail($id);
+        return view('admin.pengumuman.show', compact('pengumuman'));
+    }
 }

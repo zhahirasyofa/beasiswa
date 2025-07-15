@@ -61,3 +61,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('pengumuman/create', [ZhahiraPengumumansController::class, 'create'])->name('pengumuman.create');
     Route::post('pengumuman', [ZhahiraPengumumansController::class, 'store'])->name('pengumuman.store');
 });
+Route::get('/pengumuman/{id}', [ZhahiraPengumumansController::class, 'show'])->name('admin.pengumuman.show');
