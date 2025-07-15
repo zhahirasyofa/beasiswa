@@ -3,6 +3,32 @@
 @section('content')
     <div class="container mt-4">
         <h3>Data Seluruh Pendaftar Beasiswa</h3>
+        <div class="mb-4">
+            <form method="GET" class="row g-3 align-items-end">
+                <div class="col-md-5">
+                    <label for="beasiswa" class="form-label">Cari Nama Beasiswa</label>
+                    <input type="text" name="beasiswa" id="beasiswa" class="form-control" value="{{ request('beasiswa') }}"
+                        placeholder="Contoh: Beasiswa Unggulan">
+                </div>
+
+                <div class="col-md-5">
+                    <label for="kategori" class="form-label">Filter Kategori</label>
+                    <select name="kategori" id="kategori" class="form-select">
+                        <option value="">Semua Kategori</option>
+                        @foreach ($kategoris as $kategori)
+                            <option value="{{ $kategori->id }}"
+                                {{ request('kategori') == $kategori->id ? 'selected' : '' }}>
+                                {{ $kategori->nama }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-dark w-100">Cari</button>
+                </div>
+            </form>
+        </div>
 
         @if ($pendaftarans->isEmpty())
             <div class="alert alert-warning">Belum ada pendaftar.</div>
@@ -47,9 +73,10 @@
                                 </span>
                             </td>
                             <td>
-                                @if ($p->status === 'diproses')
-                                    <div class="d-flex gap-1">
-                                        <form action="{{ route('admin.pendaftaran.updateStatus', $p->id) }}" method="POST">
+                                <div class="d-flex gap-1 flex-column flex-md-row">
+                                    @if ($p->status === 'diproses')
+                                        <form action="{{ route('admin.pendaftaran.updateStatus', $p->id) }}"
+                                            method="POST">
                                             @csrf
                                             @method('PATCH')
                                             <input type="hidden" name="status" value="diterima">
@@ -63,10 +90,18 @@
                                             <input type="hidden" name="status" value="ditolak">
                                             <button type="submit" class="btn btn-danger btn-sm">Tolak</button>
                                         </form>
-                                    </div>
-                                @else
-                                    <span class="text-muted">Sudah diproses</span>
-                                @endif
+                                    @else
+                                        <span class="text-muted me-2">Sudah diproses</span>
+                                    @endif
+
+                                    {{-- Tombol Hapus --}}
+                                    <form action="{{ route('admin.pendaftaran.destroy', $p->id) }}" method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">Hapus</button>
+                                    </form>
+                                </div>
                             </td>
 
                         </tr>

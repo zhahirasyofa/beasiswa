@@ -18,13 +18,17 @@ class ZhahiraKategorisController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255'
+            'nama' => 'required|string|max:255',
+            'biaya_hidup' => 'nullable|numeric|min:0',
+            'biaya_pendidikan' => 'nullable|numeric|min:0',
         ]);
 
         ZhahiraKategoris::create([
             'nama' => $request->nama,
+            'biaya_hidup' => $request->biaya_hidup,
+            'biaya_pendidikan' => $request->biaya_pendidikan,
         ]);
 
-        return back()->with('success', 'Kategori berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Kategori berhasil ditambahkan.');
     }
 }

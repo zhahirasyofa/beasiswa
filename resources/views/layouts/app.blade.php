@@ -89,6 +89,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('pendaftaran.index') }}">Status Pendaftaran</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('pendaftaran.penerima') }}">Data Penerima</a>
+                            </li>
                         @endif
                     @endauth
                 </ul>

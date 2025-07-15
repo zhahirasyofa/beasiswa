@@ -25,4 +25,5 @@ class ZhahiraBeasiswas extends Model
     {
         return $this->belongsTo(ZhahiraKategoris::class, 'kategori_id');
     }
+    
 }

@@ -10,7 +10,7 @@ class ZhahiraKategoris extends Model
     use HasFactory;
 
     protected $table = 'zhahira_kategoris'; // pastikan nama tabel sesuai
-    protected $fillable = ['nama']; // sesuaikan dengan kolom tabel
+    protected $fillable = ['nama', 'biaya_hidup', 'biaya_pendidikan']; // sesuaikan dengan kolom tabel
 
     // Relasi: satu kategori memiliki banyak beasiswa
     public function beasiswas()

@@ -49,6 +49,8 @@ Route::middleware(['auth', RoleAdmin::class])->group(function () {
 
     Route::patch('/admin/pendaftaran/{id}/status', [ZhahiraPendaftaransController::class, 'updateStatus'])
         ->name('admin.pendaftaran.updateStatus');
+
+    Route::delete('/admin/pendaftaran/{id}', [ZhahiraPendaftaransController::class, 'destroy'])->name('admin.pendaftaran.destroy');
 });
 
 // Hanya izinkan route create dan store saja
@@ -62,3 +64,4 @@ Route::middleware(['auth'])->group(function () {
     Route::post('pengumuman', [ZhahiraPengumumansController::class, 'store'])->name('pengumuman.store');
 });
 Route::get('/pengumuman/{id}', [ZhahiraPengumumansController::class, 'show'])->name('admin.pengumuman.show');
+Route::get('/penerima', [ZhahiraPendaftaransController::class, 'penerima'])->name('pendaftaran.penerima');
