@@ -6,7 +6,7 @@
     <div class="container py-5">
         {{-- Tombol Kembali --}}
         <div class="mb-4">
-            <a href="{{ url('/') }}#pengumuman" class="btn btn-secondary">← Kembali ke Pengumuman</a>
+            <a href="{{ url('/') }}#pengumuman" class="btn btn-secondary">Kembali</a>
 
         </div>
 

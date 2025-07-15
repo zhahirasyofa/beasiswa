@@ -48,7 +48,9 @@ class ZhahiraBeasiswasController extends Controller
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date',
             'kategori_id' => 'required|exists:zhahira_kategoris,id',
+            'bantuan' => 'required|string',
         ]);
+
 
         ZhahiraBeasiswas::create([
             'nama_beasiswa' => $request->nama_beasiswa,
@@ -57,6 +59,7 @@ class ZhahiraBeasiswasController extends Controller
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai,
             'kategori_id' => $request->kategori_id,
+            'bantuan' => $request->bantuan,
         ]);
 
         // Redirect ke halaman daftar beasiswa dengan pesan sukses
@@ -73,7 +76,9 @@ class ZhahiraBeasiswasController extends Controller
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date',
             'kategori_id' => 'required|exists:zhahira_kategoris,id',
+            'bantuan' => 'required|string',
         ]);
+
 
         $beasiswa->update([
             'nama_beasiswa' => $request->nama_beasiswa,
@@ -82,6 +87,7 @@ class ZhahiraBeasiswasController extends Controller
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai,
             'kategori_id' => $request->kategori_id,
+            'bantuan' => $request->bantuan,
         ]);
 
         return redirect()->route('beasiswa.index')->with('success', 'Data beasiswa berhasil diperbarui.');

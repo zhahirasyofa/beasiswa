@@ -47,6 +47,13 @@
                 </select>
             </div>
 
+            <div class="mb-4">
+                <label for="bantuan" class="form-label fw-semibold">Bantuan</label>
+                <textarea name="bantuan" id="bantuan" rows="4" class="form-control rounded-3 shadow-sm" required>{{ old('bantuan', $beasiswa->bantuan) }}</textarea>
+                <small class="text-muted">Pisahkan poin dengan Enter agar tampil bullet point.</small>
+            </div>
+
+
             <button type="submit" class="btn btn-primary text-light" style="background-color: #0D1B2A;">Update</button>
         </form>
     </div>

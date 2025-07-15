@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id"> {{-- Ganti ke "id" agar sesuai lokal --}}
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {{-- Tambahkan viewport --}}
     <title>@yield('title', 'Portal Beasiswa')</title>
+
+    {{-- Bootstrap CSS --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    {{-- Icon --}}
+    <link rel="icon" href="https://img.icons8.com/ios-filled/32/ffffff/graduation-cap.png" type="image/png">
+
+    {{-- Style --}}
     <style>
         :root {
             --dongker: #0D1B2A;
@@ -58,6 +66,7 @@
 
 <body>
 
+    {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg navbar-custom navbar-dark shadow-sm">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('homepage') }}">
@@ -76,22 +85,17 @@
 
                     @auth
                         @if (auth()->user()->role === 'admin')
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.pendaftaran.index') }}">Data Pendaftar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('kategori.create') }}">Tambah Kategori</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('pengumuman.create') }}">Tambah Pengumuman</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('admin.pendaftaran.index') }}">Data
+                                    Pendaftar</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('kategori.create') }}">Tambah
+                                    Kategori</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('pengumuman.create') }}">Tambah
+                                    Pengumuman</a></li>
                         @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('pendaftaran.index') }}">Status Pendaftaran</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('pendaftaran.penerima') }}">Data Penerima</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('pendaftaran.index') }}">Status
+                                    Pendaftaran</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('pendaftaran.penerima') }}">Data
+                                    Penerima</a></li>
                         @endif
                     @endauth
                 </ul>
@@ -121,10 +125,12 @@
         </div>
     </nav>
 
+    {{-- Main Content --}}
     <main class="main-content">
         @yield('content')
     </main>
 
+    {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

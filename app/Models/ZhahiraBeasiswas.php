@@ -17,13 +17,14 @@ class ZhahiraBeasiswas extends Model
         'kuota',
         'tanggal_mulai',
         'tanggal_selesai',
-        'kategori_id', // <- penting agar bisa mass-assignment
+        'kategori_id',
+        'bantuan',
     ];
+
 
     // Relasi: satu beasiswa dimiliki oleh satu kategori
     public function kategori()
     {
         return $this->belongsTo(ZhahiraKategoris::class, 'kategori_id');
     }
-    
 }
