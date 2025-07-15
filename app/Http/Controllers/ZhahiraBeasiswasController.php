@@ -63,6 +63,7 @@ class ZhahiraBeasiswasController extends Controller
         return redirect()->route('beasiswa.index')->with('success', 'Beasiswa berhasil ditambahkan.');
     }
 
+
     public function update(Request $request, ZhahiraBeasiswas $beasiswa)
     {
         $request->validate([

@@ -87,10 +87,17 @@
 
                             {{-- Tombol Aksi di Kanan Bawah --}}
                             <div class="d-flex justify-content-end gap-2">
-                                <a href="{{ route('pendaftaran.create', $beasiswa->id) }}"
-                                    class="btn btn-sm rounded-pill px-3 text-light" style="background-color: #0D1B2A;">
-                                    Daftar
-                                </a>
+                                @if ($beasiswa->kuota > 0)
+                                    <a href="{{ route('pendaftaran.create', $beasiswa->id) }}"
+                                        class="btn btn-sm rounded-pill px-3 text-light" style="background-color: #0D1B2A;">
+                                        Daftar
+                                    </a>
+                                @else
+                                    <span class="badge bg-danger rounded-pill px-3 py-2">
+                                        Kuota Habis
+                                    </span>
+                                @endif
+
 
                                 @auth
                                     @if (auth()->user()->role === 'admin')

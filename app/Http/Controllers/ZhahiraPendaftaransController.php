@@ -33,37 +33,39 @@ class ZhahiraPendaftaransController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'beasiswa_id'  => 'required|exists:zhahira_beasiswas,id',
-            'nim'          => 'required|string|max:255',
-            'prodi'        => 'required|string|max:255',
-            'asal_kampus'  => 'required|string|max:255',
-            'semester'     => 'required|string|max:255',
-            'no_telepon'   => 'required|string|max:255',
+            'beasiswa_id' => 'required|exists:zhahira_beasiswas,id',
+            'nim' => 'required|string|max:255',
+            'prodi' => 'required|string|max:255',
+            'asal_kampus' => 'required|string|max:255',
+            'semester' => 'required|string|max:255',
+            'no_telepon' => 'required|string|max:255',
         ]);
 
-        // Cek duplikat pendaftaran
-        $cek = ZhahiraPendaftarans::where('user_id', Auth::id())
-            ->where('beasiswa_id', $request->beasiswa_id)
-            ->first();
+        $beasiswa = ZhahiraBeasiswas::findOrFail($request->beasiswa_id);
 
-        if ($cek) {
-            return back()->with('error', 'Anda sudah mendaftar beasiswa ini.');
+        if ($beasiswa->kuota <= 0) {
+            return back()->with('error', 'Kuota beasiswa sudah habis.');
         }
 
         ZhahiraPendaftarans::create([
-            'user_id'        => Auth::id(),
-            'beasiswa_id'    => $request->beasiswa_id,
-            'nim'            => $request->nim,
-            'prodi'          => $request->prodi,
-            'asal_kampus'    => $request->asal_kampus,
-            'semester'       => $request->semester,
-            'no_telepon'     => $request->no_telepon,
-            'tanggal_daftar' => now()->format('Y-m-d'),
-            'status'         => 'diproses'
+            'user_id' => Auth::id(),
+            'beasiswa_id' => $request->beasiswa_id,
+            'nim' => $request->nim,
+            'prodi' => $request->prodi,
+            'asal_kampus' => $request->asal_kampus,
+            'semester' => $request->semester,
+            'no_telepon' => $request->no_telepon,
+            'tanggal_daftar' => now(),
+            'status' => 'diproses',
         ]);
 
-        return redirect()->route('homepage')->with('success', 'Pendaftaran beasiswa berhasil!');
+        $beasiswa->decrement('kuota');
+
+        return redirect()->route('pendaftaran.index')->with('success', 'Pendaftaran berhasil.');
     }
+    
+
+
     public function semua()
     {
         $pendaftarans = ZhahiraPendaftarans::with(['user', 'beasiswa'])->latest()->get();
