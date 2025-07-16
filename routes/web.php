@@ -65,3 +65,4 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('/pengumuman/{id}', [ZhahiraPengumumansController::class, 'show'])->name('admin.pengumuman.show');
 Route::get('/penerima', [ZhahiraPendaftaransController::class, 'penerima'])->name('pendaftaran.penerima');
+Route::resource('pengumuman', ZhahiraPengumumansController::class);

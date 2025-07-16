@@ -40,6 +40,13 @@
                                     {{ Str::limit($pengumuman->judul, 50) }}
                                 </h5>
 
+                                {{-- Tanggal dibuat --}}
+                                <p class="text-muted mb-1">
+                                    <small><i class="bi bi-calendar-event-fill"></i>
+                                        {{ \Carbon\Carbon::parse($pengumuman->created_at)->translatedFormat('d F Y') }}
+                                    </small>
+                                </p>
+
                                 <p class="text-muted mb-1">
                                     <small><i class="bi bi-tag-fill"></i> Kategori:
                                         {{ $pengumuman->kategori->nama ?? '-' }}</small>
@@ -64,6 +71,7 @@
             </div>
         @endif
     </div>
+
 
     {{-- Pagination (aktifkan jika diperlukan) --}}
     {{-- 

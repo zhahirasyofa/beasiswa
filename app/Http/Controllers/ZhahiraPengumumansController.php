@@ -10,20 +10,14 @@ use App\Models\ZhahiraBeasiswas;
 
 class ZhahiraPengumumansController extends Controller
 {
-
-    public function index()
-    {
-        $beasiswas = ZhahiraBeasiswas::paginate(6); // contoh
-        $pengumumans = ZhahiraPengumumans::with('kategori')->latest()->take(5)->get();
-
-        return view('homepage', compact('beasiswas', 'pengumumans'));
-    }
-
     public function create()
     {
         $kategoris = ZhahiraKategoris::all();
-        return view('admin.pengumuman.create', compact('kategoris'));
+        $pengumumans = ZhahiraPengumumans::with('kategori')->latest()->get();
+
+        return view('admin.pengumuman.create', compact('kategoris', 'pengumumans'));
     }
+
 
     public function store(Request $request)
     {
@@ -51,7 +45,54 @@ class ZhahiraPengumumansController extends Controller
 
     public function show($id)
     {
-        $pengumuman = ZhahiraPengumumans::with('kategori')->findOrFail($id);
+        $pengumumans = ZhahiraPengumumans::with('kategori')->findOrFail($id);
         return view('admin.pengumuman.show', compact('pengumuman'));
+    }
+
+    public function index()
+    {
+
+        $beasiswas = ZhahiraBeasiswas::paginate(6); // contoh
+        $pengumumans = ZhahiraPengumumans::with('kategori')->latest()->take(5)->get();
+
+        return view('homepage', compact('beasiswas', 'pengumumans'));
+    }
+
+    public function edit($id)
+    {
+        $pengumumans = ZhahiraPengumumans::findOrFail($id);
+        $kategoris = ZhahiraKategoris::all();
+        return view('admin.pengumuman.edit', compact('pengumumans', 'kategoris'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'judul' => 'required',
+            'isi' => 'required',
+            'kategori_id' => 'required',
+        ]);
+
+        $pengumumans = ZhahiraPengumumans::findOrFail($id);
+        $pengumumans->judul = $request->judul;
+        $pengumumans->isi = $request->isi;
+        $pengumumans->kategori_id = $request->kategori_id;
+
+        if ($request->hasFile('gambar')) {
+            $path = $request->file('gambar')->store('pengumumans', 'public');
+            $pengumumans->gambar = $path;
+        }
+
+        $pengumumans->save();
+
+        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $pengumumans = ZhahiraPengumumans::findOrFail($id);
+        $pengumumans->delete();
+
+        return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil dihapus.');
     }
 }

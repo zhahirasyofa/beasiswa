@@ -51,4 +51,53 @@
             </form>
         </div>
     </div>
+
+    <div class="mt-5">
+        <h4 class="fw-bold text-primary mb-3 text-center">Daftar Pengumuman</h4>
+        <table class="table table-striped table-bordered align-middle text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th>No</th>
+                    <th>Judul</th>
+                    <th>Kategori</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($pengumumans as $pengumuman)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $pengumuman->judul }}</td>
+                        <td>{{ $pengumuman->kategori->nama }}</td>
+                        <td>
+                            @if ($pengumuman->gambar)
+                                <img src="{{ asset('storage/' . $pengumuman->gambar) }}" alt="Gambar" width="100">
+                            @else
+                                Tidak ada gambar
+                            @endif
+                        </td>
+                        <td>
+                            <a href="{{ route('pengumuman.edit', $pengumuman->id) }}"
+                                class="btn btn-sm btn-warning rounded-pill mb-1">
+                                Edit
+                            </a>
+                            <form action="{{ route('pengumuman.destroy', $pengumuman->id) }}" method="POST"
+                                class="d-inline" onsubmit="return confirm('Yakin ingin menghapus pengumuman ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger rounded-pill">
+                                    Hapus
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5">Belum ada pengumuman</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 @endsection
