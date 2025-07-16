@@ -89,7 +89,7 @@
                                     Pendaftar</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ route('kategori.create') }}">Tambah
                                     Kategori</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{{ route('pengumuman.create') }}">Tambah
+                            <li class="nav-item"><a class="nav-link" href="{{ route('pengumuman.index') }}">Kelola
                                     Pengumuman</a></li>
                         @else
                             <li class="nav-item"><a class="nav-link" href="{{ route('pendaftaran.index') }}">Status

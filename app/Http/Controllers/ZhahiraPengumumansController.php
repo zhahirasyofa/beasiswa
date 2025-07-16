@@ -49,14 +49,24 @@ class ZhahiraPengumumansController extends Controller
         return view('admin.pengumuman.show', compact('pengumuman'));
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $query = ZhahiraPengumumans::with('kategori');
 
-        $beasiswas = ZhahiraBeasiswas::paginate(6); // contoh
-        $pengumumans = ZhahiraPengumumans::with('kategori')->latest()->take(5)->get();
+        if ($request->search) {
+            $query->where('judul', 'LIKE', '%' . $request->search . '%');
+        }
 
-        return view('homepage', compact('beasiswas', 'pengumumans'));
+        if ($request->kategori) {
+            $query->where('kategori_id', $request->kategori);
+        }
+
+        $pengumumans = $query->latest()->get();
+        $kategoris = ZhahiraKategoris::all();
+
+        return view('admin.pengumuman.index', compact('pengumumans', 'kategoris'));
     }
+
 
     public function edit($id)
     {
