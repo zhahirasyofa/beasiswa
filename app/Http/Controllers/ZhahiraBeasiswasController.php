@@ -23,7 +23,7 @@ class ZhahiraBeasiswasController extends Controller
             $query->where('kategori_id', request('kategori'));
         }
 
-        $beasiswas = $query->latest()->paginate(6);
+        $beasiswas = $query->latest()->get();
 
         // Untuk form filter
         $kategoris = ZhahiraKategoris::all();
